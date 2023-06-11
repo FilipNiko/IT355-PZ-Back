@@ -13,7 +13,7 @@ public interface KategorijeService {
 
     Kategorije save(Kategorije kategorije);
 
-    Kategorije update(Kategorije game);
+    Kategorije update(Kategorije kategorije);
 
     void deleteById(Integer id);
 }

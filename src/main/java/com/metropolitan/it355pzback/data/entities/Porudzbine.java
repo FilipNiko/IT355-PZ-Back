@@ -24,7 +24,7 @@ public class Porudzbine {
     private Integer id;
 
     @Column(name = "datumKreiranja", nullable = false)
-    private LocalDate datumKreiranja;
+    private String datumKreiranja;
 
     @Column(name = "ime", nullable = false, length = 50)
     private String ime;
@@ -52,7 +52,7 @@ public class Porudzbine {
     @JoinColumn(name = "idKorisnika", nullable = false)
     private Korisnici korisnik;
 
-    @OneToMany(mappedBy = "porudzbina")
-    private List<Stavke> stavke = new ArrayList<>();
+   /* @OneToMany(mappedBy = "porudzbina")
+    private List<Stavke> stavke = new ArrayList<>();*/
 
 }
