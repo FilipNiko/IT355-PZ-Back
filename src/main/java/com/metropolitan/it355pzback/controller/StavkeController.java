@@ -8,6 +8,7 @@ import com.metropolitan.it355pzback.service.StavkeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +23,14 @@ public class StavkeController {
     private final StavkeService stavkeService;
 
     @GetMapping
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Stavke>> getAll() {
         return ResponseEntity.ok(stavkeService.findAll());
     }
 
 
     @GetMapping("/{id}")
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Stavke> getStavkaById(@PathVariable("id") int id) {
         Optional<Stavke> stavka = stavkeService.findById(id);
 
@@ -41,7 +42,7 @@ public class StavkeController {
     }
 
     @GetMapping("/search/porudzbina")
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Stavke>> findByPorudzbinaId(@RequestParam(value = "_porudzbinaId") int idPorudzbine) {
         try {
             List<Stavke> stavke = stavkeService.findByIdPorudzbine(idPorudzbine);
@@ -56,19 +57,19 @@ public class StavkeController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Stavke> createStavka(@RequestBody Stavke stavka) {
         return ResponseEntity.ok(stavkeService.save(stavka));
     }
 
     @PutMapping
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Stavke> updateStavka(@RequestBody Stavke stavka) {
         return ResponseEntity.ok(stavkeService.update(stavka));
     }
 
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteStavka(@PathVariable("id") int id) {
         try {
             stavkeService.deleteById(id);

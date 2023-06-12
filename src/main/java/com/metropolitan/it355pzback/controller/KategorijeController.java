@@ -6,6 +6,7 @@ import com.metropolitan.it355pzback.service.KategorijeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,6 @@ public class KategorijeController {
     private KategorijeService kategorijeService;
 
     @GetMapping
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<Kategorije>> getAll() {
 
         return ResponseEntity.ok(kategorijeService.findAll());
@@ -28,7 +28,6 @@ public class KategorijeController {
 
 
     @GetMapping("/{id}")
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Kategorije> getKategorijaById(@PathVariable("id") int id) {
         Optional<Kategorije> kategorija = kategorijeService.findById(id);
 
@@ -40,19 +39,19 @@ public class KategorijeController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Kategorije> createKategorija(@RequestBody Kategorije kategorija) {
         return ResponseEntity.ok(kategorijeService.save(kategorija));
     }
 
     @PutMapping
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Kategorije> updateKategorija(@RequestBody Kategorije kategorija) {
         return ResponseEntity.ok(kategorijeService.update(kategorija));
     }
 
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteKategorija(@PathVariable("id") int id) {
         try {
             kategorijeService.deleteById(id);

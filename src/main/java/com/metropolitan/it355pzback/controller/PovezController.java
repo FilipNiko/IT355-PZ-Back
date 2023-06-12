@@ -6,6 +6,7 @@ import com.metropolitan.it355pzback.service.PovezService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +21,12 @@ public class PovezController {
     private final PovezService povezService;
 
     @GetMapping
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<Povez>> getAll() {
         return ResponseEntity.ok(povezService.findAll());
     }
 
 
     @GetMapping("/{id}")
-    //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Povez> getPovezById(@PathVariable("id") int id) {
         Optional<Povez> povez = povezService.findById(id);
 
@@ -39,19 +38,19 @@ public class PovezController {
     }
 
     @PostMapping
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Povez> createPovez(@RequestBody Povez povez) {
         return ResponseEntity.ok(povezService.save(povez));
     }
 
     @PutMapping
-    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Povez> updatePovez(@RequestBody Povez povez) {
         return ResponseEntity.ok(povezService.update(povez));
     }
 
     @DeleteMapping("/{id}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deletePovez(@PathVariable("id") int id) {
         try {
             povezService.deleteById(id);

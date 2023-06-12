@@ -5,12 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 @Getter
@@ -50,7 +44,7 @@ public class Porudzbine {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idKorisnika", nullable = false)
-    private Korisnici korisnik;
+    private User korisnik;
 
    /* @OneToMany(mappedBy = "porudzbina")
     private List<Stavke> stavke = new ArrayList<>();*/
