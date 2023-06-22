@@ -1,9 +1,6 @@
 package com.metropolitan.it355pzback.controller;
 
-import com.metropolitan.it355pzback.data.entities.Knjige;
-import com.metropolitan.it355pzback.data.entities.Porudzbine;
 import com.metropolitan.it355pzback.data.entities.Stavke;
-import com.metropolitan.it355pzback.service.PorudzbineService;
 import com.metropolitan.it355pzback.service.StavkeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
